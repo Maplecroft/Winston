@@ -26,7 +26,12 @@ If you just want to use the command-line features, you could::
 Usage
 =====
 
-On the command-line::
+You can either use Winston on the command-line or as a module.
+
+Command-line
+------------
+
+To see your options, simply::
 
     winston --help
 
@@ -50,10 +55,14 @@ Read more in the `Rasterio docs`_.
 .. _`Tablib`: http://docs.python-tablib.org/en/latest/
 .. _`Rasterio docs`: https://mapbox.github.io/rasterio/
 
-You can also use Winston as a module::
+Module
+------
+
+You can also use Winston in your code::
 
     >>> import rasterio
     >>> from winston.stats import summary
+    >>> from shapely.geometry import Point
     >>> src = rasterio.open('/path/to/raster.tif')
     >>> print summary(src)
     [37324800.0, 37324800.0, 281865888.0, 7.552, 3.45, 0.0, 10.0]
@@ -61,3 +70,6 @@ You can also use Winston as a module::
     [37324800.0, 1772928.0, 9023566.0, 5.09, 0.573, 4.122, 5.929]
     >>> print summary(src, bounds=(4, 6), mean_only=True)
     5.09
+    >>> print summary(src, Point(-2.36, 51.38).buffer(0.25), mean_only=True)
+    8.974
+

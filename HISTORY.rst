@@ -2,6 +2,11 @@
 History
 =======
 
+Unreleased changes
+------------------
+
+* Accept WKT strings as well as GeoJSON & Shapely geometries
+
 0.2.0 (2016-10-12)
 ------------------
 

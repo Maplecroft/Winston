@@ -3,11 +3,13 @@
 from __future__ import absolute_import
 
 import numpy
+import six
 
 from collections import namedtuple
 
 from rasterio.mask import mask
 
+from shapely import wkt
 from shapely.geometry import mapping
 
 
@@ -19,8 +21,8 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
     """Return ``ST_SummaryStats`` style stats for the given raster.
 
     If ``geometry`` is provided, we mask the raster with the given geometry and
-    return the stats for the intersection. The parameter can either be a
-    GeoJSON-like object or a Shapely geometry.
+    return the stats for the intersection. The parameter can be a GeoJSON-like
+    object, a WKT string, or a Shapely geometry.
 
     If ``all_touched`` is set, we include every pixel that is touched by the
     given geometry. If set to ``False``, we only include pixels that are
@@ -52,6 +54,8 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
 
     try:
         if geometry:
+            if isinstance(geometry, six.string_types):
+                geometry = wkt.loads(geometry)
             if not isinstance(geometry, dict):
                 geometry = mapping(geometry)
             result, _ = mask(

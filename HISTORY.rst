@@ -2,7 +2,7 @@
 History
 =======
 
-Unreleased changes
+0.2.0 (2016-10-12)
 ------------------
 
 ``winston.stats.summary``:

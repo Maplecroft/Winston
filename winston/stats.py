@@ -85,9 +85,9 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
                 len(scored_pixels),
                 scored_pixels.sum(),
                 scored_pixels.mean(),
-                scored_pixels.std(),
                 scored_pixels.min(),
                 scored_pixels.max(),
+                scored_pixels.std(),
             )
     else:
         no_result(mean_only)

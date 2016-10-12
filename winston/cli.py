@@ -59,8 +59,8 @@ def main(fnames=None, not_all_touched=False, bounds=None, radius=None,
         geometries.extend([load_wkt(l) for l in open(wkt_file).readlines()])
 
     # CSV must have either 'lat' and 'lon'/'lng' columns *or* a 'geom'/'wkt'
-    # column (if you want to include WKT for a geometry rather than
-    # coordinates. We check for coords first, then geometries.
+    # column, so you could include WKT for a geometry rather than coordinates.
+    # We check for coords first, then geometries.
     if csv_file:
         d = tablib.Dataset()
         d.csv = open(csv_file).read()

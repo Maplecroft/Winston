@@ -2,6 +2,11 @@
 History
 =======
 
+Unreleased changes
+------------------
+
+* Bugfix in namedtuple parameter ordering (oops!)
+
 0.2.1 (2016-10-12)
 ------------------
 

@@ -12,7 +12,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'click==6.6',
-    'rasterio===0.36.0',
+    'rasterio==0.36.0',
     'requests[security]==2.4.3',
     'shapely==1.5.17',
     'numpy==1.11.2',

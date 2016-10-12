@@ -2,10 +2,11 @@
 History
 =======
 
-Unreleased changes
+0.2.1 (2016-10-12)
 ------------------
 
 * Accept WKT strings as well as GeoJSON & Shapely geometries
+* Fix the processing of 'no result' summaries
 
 0.2.0 (2016-10-12)
 ------------------

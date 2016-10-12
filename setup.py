@@ -21,7 +21,7 @@ requirements = [
 
 setup(
     name='winston',
-    version='0.1.0',
+    version='0.1.1',
     description="A bit like PostGIS ST_SummaryStats for files on disk",
     long_description=readme + '\n\n' + history,
     author="James Rutherford",

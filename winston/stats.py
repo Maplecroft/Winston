@@ -4,9 +4,14 @@ from __future__ import absolute_import
 
 import numpy
 
+from collections import namedtuple
+
 from rasterio.mask import mask
 
 from shapely.geometry import mapping
+
+
+Summary = namedtuple('Summary', 'count data_count sum mean min max std')
 
 
 def summary(raster, geometry=None, all_touched=True, mean_only=False,
@@ -28,13 +33,12 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
     filtering raster pixels. If not provided, we exclude anything equal to the
     raster no data value.
 
-    If ``mean_only`` is ``False``, the values return correspond to::
-
-        ['count', 'data_count', 'sum', 'mean', 'min', 'max', 'std']
-
-    The difference betwee ``count`` and ``data_count`` is that ``data_count``
-    is the count of all pixels that are either within ``bounds`` or not equal
-    to the raster no data value.
+    If ``mean_only`` is ``False``, we return a ``namedtuple`` representing the
+    stats. The difference betwee ``count`` and ``data_count`` in the result is
+    that ``data_count`` is the count of all pixels that are either within
+    ``bounds`` or not equal to the raster no data value. All other attributes
+    should be obvious and are consistent with PostGIS (``min``, ``max``,
+    ``std``, etc).
 
     If ``mean_only`` is ``True``, we simply return a ``float`` or ``None``
     representing the mean value of the matching pixels.
@@ -44,7 +48,7 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
         if mean_only:
             return None
         else:
-            return [0, None, None, None, None, None, None]
+            return Summary(0, 0)
 
     try:
         if geometry:
@@ -70,9 +74,9 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
     scored_pixels = numpy.extract(score_mask, pixels)
     if len(scored_pixels):
         if mean_only:
-            return round(scored_pixels.mean(), 3)
+            return scored_pixels.mean()
         else:
-            return map(lambda x: round(x, 3), [
+            return Summary(
                 len(pixels),
                 len(scored_pixels),
                 scored_pixels.sum(),
@@ -80,6 +84,6 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
                 scored_pixels.std(),
                 scored_pixels.min(),
                 scored_pixels.max(),
-            ])
+            )
     else:
         no_result(mean_only)

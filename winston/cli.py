@@ -27,7 +27,7 @@ from winston.stats import summary
               help='Always use a buffer radius of 25/111.13 degrees (default)')
 @click.option('--radius', '-r', default=25.0,
               help='Point radius in km (pass zero to disable point buffering)')
-@click.option('--bounds', nargs=2, type=float,
+@click.option('--bounds', '-b', nargs=2, type=float,
               help='Optional bounds for clipping values rather than using '
                    'the raster no data value')
 @click.option('--mean-only', '-o', is_flag=True,
@@ -147,7 +147,7 @@ def main(fnames=None, not_all_touched=False, bounds=None, radius=None,
             if mean_only:
                 row.append(stats)
             else:
-                row.extend(stats)
+                row.extend(list(stats))
 
             results.append(row)
 

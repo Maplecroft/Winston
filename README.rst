@@ -65,11 +65,11 @@ You can also use Winston in your code::
     >>> from shapely.geometry import Point
     >>> src = rasterio.open('/path/to/raster.tif')
     >>> print summary(src)
-    [37324800.0, 37324800.0, 281865888.0, 7.552, 3.45, 0.0, 10.0]
+    Summary(count=37324800, data_count=8364909, sum=49041320.0, mean=5.8627439, min=2.2037256, max=0.0, std=10.0)
     >>> print summary(src, bounds=(4, 6))
-    [37324800.0, 1772928.0, 9023566.0, 5.09, 0.573, 4.122, 5.929]
+    Summary(count=37324800, data_count=1874682, sum=9569182.0, mean=5.1044292, min=0.56939822, max=4.0, std=5.9999995)
     >>> print summary(src, bounds=(4, 6), mean_only=True)
     5.09
-    >>> print summary(src, Point(-2.36, 51.38).buffer(0.25), mean_only=True)
-    8.974
+    >>> print summary(src, Point(-2.36, 51.38).buffer(0.25))
+    Summary(count=169, data_count=137, sum=1229.4401, mean=8.9740152, min=0.24473859, max=8.3602285, std=9.4269724)
 

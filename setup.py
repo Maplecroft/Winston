@@ -8,7 +8,7 @@ with open('README.rst') as readme_file:
 
 with open('HISTORY.rst') as history_file:
     # Skipping the first line reduces the heading level by 1
-    history = '\n'.join(history_file.readlines()[1:])
+    history = ''.join(history_file.readlines()[1:])
 
 requirements = [
     'click==6.6',

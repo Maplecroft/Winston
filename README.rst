@@ -89,7 +89,7 @@ You can also use Winston in your code:
     >>> print summary(src, Point(-2.36, 51.38).buffer(0.25))
     Summary(count=169, data_count=137, sum=1229.4401, mean=8.9740152, min=8.3602285, max=9.4269724, std=0.24473859)
 
-Exporting results is reasonably simple as well with ``tablib``:
+Exporting results is reasonably simple with ``tablib``:
 
 .. code-block:: pycon
 

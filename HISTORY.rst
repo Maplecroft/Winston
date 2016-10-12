@@ -6,6 +6,7 @@ Unreleased changes
 ------------------
 
 ``winston.stats.summary``:
+
 * now accepts Shapely geometries as well as GeoJSON-like objects
 * we no longer round results to 3 decimal places
 * the stats are now returned as a ``namedtuple`` rather than a list

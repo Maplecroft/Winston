@@ -58,7 +58,9 @@ Read more in the `Rasterio docs`_.
 Module
 ------
 
-You can also use Winston in your code::
+You can also use Winston in your code:
+
+.. code-block:: pycon
 
     >>> import rasterio
     >>> from winston.stats import summary

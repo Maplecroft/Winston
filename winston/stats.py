@@ -48,7 +48,7 @@ def summary(raster, geometry=None, all_touched=True, mean_only=False,
         if mean_only:
             return None
         else:
-            return Summary(0, 0)
+            return Summary(None, None, None, None, None, None, None)
 
     try:
         if geometry:

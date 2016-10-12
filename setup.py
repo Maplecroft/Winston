@@ -10,14 +10,8 @@ with open('HISTORY.rst') as history_file:
     # Skipping the first line reduces the heading level by 1
     history = ''.join(history_file.readlines()[1:])
 
-requirements = [
-    'click==6.6',
-    'rasterio==0.36.0',
-    'requests[security]==2.4.3',
-    'shapely==1.5.17',
-    'numpy==1.11.2',
-    'tablib==0.11.2',
-]
+with open('requirements.txt') as req_file:
+    requirements = req_file.readlines()
 
 setup(
     name='winston',

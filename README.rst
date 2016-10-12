@@ -2,6 +2,20 @@
 Winston
 =======
 
+
+.. image:: https://img.shields.io/pypi/v/winston.svg
+    :target: https://pypi.python.org/pypi/winston
+    :alt: Latest Release
+
+.. image:: https://pyup.io/repos/github/maplecroft/winston/shield.svg
+    :target: https://pyup.io/repos/github/maplecroft/winston/
+    :alt: Updates
+
+.. image:: https://pyup.io/repos/github/maplecroft/winston/python-3-shield.svg
+    :target: https://pyup.io/repos/github/maplecroft/winston/
+    :alt: Python 3
+
+
 A bit like the PostGIS ``ST_SummaryStats`` function for rasters on your filesystem.
 Mostly we're just stringing together some awesome libraries:
 

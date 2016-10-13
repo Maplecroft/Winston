@@ -21,11 +21,11 @@ from winston.stats import summary
 @click.option('--all-touched', is_flag=True,
               help='Include all pixels that are touched by the area. '
                    'Default is to only include those with centroids inside.')
-@click.option('--proportional', 'radius_mode', flag_value='prop',
-              help='Use a radius proportional to latitude')
-@click.option('--fixed', 'radius_mode', flag_value='fixed', default=True,
-              help='Always use a buffer radius of 25/111.13 degrees (default)')
-@click.option('--radius', '-r', default=25.0,
+@click.option('--proportional', 'radius_mode', flag_value='prop', default=True,
+              help='Use a radius proportional to latitude (default)')
+@click.option('--fixed', 'radius_mode', flag_value='fixed',
+              help='Always use a buffer radius of km/111.13 degrees')
+@click.option('--radius', '-r', default=0.0,
               help='Point radius in km (pass zero to disable point buffering)')
 @click.option('--bounds', '-b', nargs=2, type=float,
               help='Optional bounds for clipping values rather than using '

@@ -2,6 +2,11 @@
 History
 =======
 
+Unreleased changes
+------------------
+
+* Updated CLI defaults to be more... sane
+
 0.2.3 (2016-10-13)
 ------------------
 

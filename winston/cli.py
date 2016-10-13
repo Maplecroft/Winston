@@ -18,9 +18,9 @@ from winston.stats import summary
 
 @click.command()
 @click.argument('fnames', nargs=-1)
-@click.option('--not-all-touched', is_flag=True,
-              help='Only include pixels that have centroids inside the area. '
-                   'Default is to include all pixels touched by the area.')
+@click.option('--all-touched', is_flag=True,
+              help='Include all pixels that are touched by the area. '
+                   'Default is to only include those with centroids inside.')
 @click.option('--proportional', 'radius_mode', flag_value='prop',
               help='Use a radius proportional to latitude')
 @click.option('--fixed', 'radius_mode', flag_value='fixed', default=True,
@@ -40,11 +40,9 @@ from winston.stats import summary
               help='Text file containing WKT strings (one per line)')
 @click.option('--csv-file', '-c',
               help='CSV file containing location data')
-def main(fnames=None, not_all_touched=False, bounds=None, radius=None,
+def main(fnames=None, all_touched=False, bounds=None, radius=None,
          radius_mode=None, mean_only=False, meta=False, wkt=None,
          wkt_file=None, csv_file=None):
-    all_touched = not not_all_touched
-
     if not len(fnames):
         click.echo('No file names given. Exiting.')
         return

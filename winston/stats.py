@@ -16,7 +16,7 @@ from shapely.geometry import mapping
 Summary = namedtuple('Summary', 'count data_count sum mean min max std')
 
 
-def summary(raster, geometry=None, all_touched=True, mean_only=False,
+def summary(raster, geometry=None, all_touched=False, mean_only=False,
             bounds=None):
     """Return ``ST_SummaryStats`` style stats for the given raster.
 

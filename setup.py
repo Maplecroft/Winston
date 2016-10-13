@@ -15,7 +15,7 @@ with open('requirements.txt') as req_file:
 
 setup(
     name='winston',
-    version='0.2.1',
+    version='0.2.2',
     description="A bit like PostGIS ST_SummaryStats for files on disk",
     long_description=readme + '\n\n' + history,
     author="James Rutherford",

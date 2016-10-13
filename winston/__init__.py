@@ -2,4 +2,4 @@
 
 __author__ = 'James Rutherford'
 __email__ = 'james.rutherford@maplecroft.com'
-__version__ = '0.2.1'
+__version__ = '0.2.2'

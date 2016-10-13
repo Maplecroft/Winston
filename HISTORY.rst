@@ -6,6 +6,7 @@ Unreleased changes
 ------------------
 
 * Invert default value of ``all_touched`` flag to be consistent with Rasterio
+* Added missing requirement (``six``) and reorganised requirements files
 
 0.2.2 (2016-10-13)
 ------------------

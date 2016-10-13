@@ -2,7 +2,7 @@
 History
 =======
 
-Unreleased changes
+0.2.3 (2016-10-13)
 ------------------
 
 * Invert default value of ``all_touched`` flag to be consistent with Rasterio

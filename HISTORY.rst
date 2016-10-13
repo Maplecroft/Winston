@@ -6,6 +6,7 @@ Unreleased changes
 ------------------
 
 * Updated CLI defaults to be more... sane
+* Added some basic tests
 
 0.2.3 (2016-10-13)
 ------------------

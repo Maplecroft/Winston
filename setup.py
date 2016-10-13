@@ -13,6 +13,9 @@ with open('HISTORY.rst') as history_file:
 with open('requirements/base.txt') as req_file:
     requirements = req_file.readlines()
 
+with open('requirements/test.txt') as req_file:
+    test_requirements = req_file.readlines()
+
 setup(
     name='winston',
     version='0.2.3',
@@ -47,4 +50,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
+    test_suite='tests',
+    tests_require=test_requirements
 )

@@ -63,4 +63,4 @@ target/
 # pyenv python configuration file
 .python-version
 
-data/
+/data/

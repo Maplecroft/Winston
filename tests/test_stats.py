@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import rasterio
+import numpy
 import os
 import unittest
 
@@ -35,11 +36,17 @@ class TestSummaryStats(unittest.TestCase):
         # So a 45 degree buffer around the origin should be the nine pixels
         # from (1, 1) to (3, 3) in that matrix.
 
+        expected = numpy.array([
+            135, 225, 315,
+            180, 270, 360,
+            225, 315, 405,
+        ])
+
         result = summary(self.src, self.origin.buffer(45), all_touched=True)
-        self.assertEqual(result.count, 9)
-        self.assertEqual(result.data_count, 9)
-        self.assertEqual(result.sum, 2430)
-        self.assertEqual(result.mean, 270)
-        self.assertEqual(result.min, 135)
-        self.assertEqual(result.max, 405)
-        self.assertAlmostEqual(result.std, 82.1584, 4)
+        self.assertEqual(result.count, expected.size)
+        self.assertEqual(result.data_count, expected.size)
+        self.assertEqual(result.sum, expected.sum())
+        self.assertEqual(result.mean, expected.mean())
+        self.assertEqual(result.min, expected.min())
+        self.assertEqual(result.max, expected.max())
+        self.assertEqual(result.std, expected.std())

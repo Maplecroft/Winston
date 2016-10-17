@@ -81,13 +81,13 @@ You can also use Winston in your code:
     >>> from shapely.geometry import Point
     >>> src = rasterio.open('/path/to/raster.tif')
     >>> print summary(src)
-    Summary(count=37324800, data_count=8364909, sum=49041320.0, mean=5.8627439, min=0.0, max=10.0, std=2.2037256)
+    Summary(count=37324800, sum=49041320.0, mean=5.8627439, min=0.0, max=10.0, std=2.2037256)
     >>> print summary(src, bounds=(4, 6))
-    Summary(count=37324800, data_count=1874682, sum=9569182.0, mean=5.1044292, min=4.0, max=5.9999995, std=0.56939822)
+    Summary(count=37324800, sum=9569182.0, mean=5.1044292, min=4.0, max=5.9999995, std=0.56939822)
     >>> print summary(src, bounds=(4, 6), mean_only=True)
     5.09
     >>> print summary(src, Point(-2.36, 51.38).buffer(0.25))
-    Summary(count=169, data_count=137, sum=1229.4401, mean=8.9740152, min=8.3602285, max=9.4269724, std=0.24473859)
+    Summary(count=169, sum=1229.4401, mean=8.9740152, min=8.3602285, max=9.4269724, std=0.24473859)
 
 Exporting results is reasonably simple with ``tablib``:
 
@@ -103,6 +103,5 @@ Exporting results is reasonably simple with ``tablib``:
     >>> d = tablib.Dataset()
     >>> d.dict = [s.__dict__ for s in summaries]
     >>> print d.headers
-    ['count', 'data_count', 'sum', 'mean', 'min', 'max', 'std']
+    ['count', 'sum', 'mean', 'min', 'max', 'std']
     >>> open('output.csv', 'w').write(d.csv)
-

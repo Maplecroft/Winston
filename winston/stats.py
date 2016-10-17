@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 
+import logging
 import numpy
 import six
 
@@ -10,14 +11,18 @@ from collections import namedtuple
 from rasterio.mask import mask
 
 from shapely import wkt
-from shapely.geometry import mapping
+from shapely.geometry import mapping, shape
+
+from winston.utils import raster_to_shape
+
+log = logging.getLogger(__name__)
 
 
-Summary = namedtuple('Summary', 'count data_count sum mean min max std')
+Summary = namedtuple('Summary', 'count sum mean min max std')
 
 
 def summary(raster, geometry=None, all_touched=False, mean_only=False,
-            bounds=None):
+            bounds=None, exclude_nodata_value=True):
     """Return ``ST_SummaryStats`` style stats for the given raster.
 
     If ``geometry`` is provided, we mask the raster with the given geometry and
@@ -36,36 +41,52 @@ def summary(raster, geometry=None, all_touched=False, mean_only=False,
     raster no data value.
 
     If ``mean_only`` is ``False``, we return a ``namedtuple`` representing the
-    stats. The difference betwee ``count`` and ``data_count`` in the result is
-    that ``data_count`` is the count of all pixels that are either within
-    ``bounds`` or not equal to the raster no data value. All other attributes
-    should be obvious and are consistent with PostGIS (``min``, ``max``,
-    ``std``, etc).
+    stats. All other attributes should be obvious and are consistent with
+    PostGIS (``min``, ``max``, ``std``, etc).
 
     If ``mean_only`` is ``True``, we simply return a ``float`` or ``None``
     representing the mean value of the matching pixels.
+
+    The ``exclude_nodata_value`` is consistent with ``ST_SummaryStats`` in that
+    if it's ``True`` (default) we only count non-nodata pixels (or those pixels
+    within ``bounds`` if defined). If it's ``False`` we return the count of all
+    pixels.
 
     """
     def no_result(mean_only):
         if mean_only:
             return None
         else:
-            return Summary(None, None, None, None, None, None, None)
+            return Summary(None, None, None, None, None, None)
 
     try:
         if geometry:
+            # If it's a string, assume WKT
             if isinstance(geometry, six.string_types):
                 geometry = wkt.loads(geometry)
+
+            # If not already GeoJSON, assume it's a Shapely shape
             if not isinstance(geometry, dict):
-                geometry = mapping(geometry)
+                geojson = mapping(geometry)
+            else:
+                geojson = geometry
+                geometry = shape(geometry)
             result, _ = mask(
-                raster, [geometry], crop=True, all_touched=all_touched,
+                raster, [geojson], crop=True, all_touched=all_touched,
             )
             pixels = result.data.flatten()
         else:
             pixels = raster.read(1).flatten()
-    except:
+    except ValueError:
         return no_result(mean_only)
+
+    raster_shape = raster_to_shape(raster)
+    if not raster_shape.contains(geometry):
+        log.warning(
+            'Geometry {} is not fully contained by the source raster'.format(
+                geometry,
+            )
+        )
 
     if bounds:
         score_mask = numpy.logical_and(
@@ -80,9 +101,12 @@ def summary(raster, geometry=None, all_touched=False, mean_only=False,
         if mean_only:
             return scored_pixels.mean()
         else:
+            if exclude_nodata_value:
+                count = len(scored_pixels)
+            else:
+                count = len(pixels)
             return Summary(
-                len(pixels),
-                len(scored_pixels),
+                count,
                 scored_pixels.sum(),
                 scored_pixels.mean(),
                 scored_pixels.min(),
@@ -90,4 +114,4 @@ def summary(raster, geometry=None, all_touched=False, mean_only=False,
                 scored_pixels.std(),
             )
     else:
-        no_result(mean_only)
+        return no_result(mean_only)

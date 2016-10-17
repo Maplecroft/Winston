@@ -6,6 +6,8 @@ Unreleased changes
 ------------------
 
 * Updated CLI defaults to be more... sane
+* Remove ``data_count`` from summary results
+* Now accept a ``exclude_nodata_value`` to be consistent with PostGIS
 * Added some basic tests
 
 0.2.3 (2016-10-13)

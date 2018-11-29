@@ -64,7 +64,7 @@ Since we require ``rasterio``, you can also use the ``rio`` command-line tool to
 Read more in the `Rasterio docs`_.
 
 .. _`Rasterio`: https://mapbox.github.io/rasterio/
-.. _`Shapely`: http://toblerity.org/shapely/manual.html
+.. _`Shapely`: https://shapely.readthedocs.io/en/stable/
 .. _`Numpy`: http://docs.scipy.org/doc/numpy/
 .. _`Tablib`: http://docs.python-tablib.org/en/latest/
 .. _`Rasterio docs`: https://mapbox.github.io/rasterio/
